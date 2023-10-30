@@ -40,7 +40,7 @@ function TodoListSelector() {
       {selectorIsOpen ? (
         <div
           id="optionList"
-          className={`bg-blue-200 border-2 border-white absolute w-[500px] mt-[5px] rounded cursor-pointer ml-[-18px] transform transition-transform duration-150`}
+          className="backdrop-blur bg-blue-200 border-2 border-white absolute w-[500px] mt-[5px] rounded cursor-pointer ml-[-18px] transform transition-transform duration-150"
         >
           {todoLists.map((todoList) => (
             <div
@@ -51,6 +51,9 @@ function TodoListSelector() {
               {todoList.name}
             </div>
           ))}
+          <div className="bg-white text-blue-300 p-2">
+            Create new to do list
+          </div>
         </div>
       ) : null}
     </div>
