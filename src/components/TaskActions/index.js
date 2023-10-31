@@ -1,9 +1,14 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTask } from "../../store/slices/todoListSlice";
+import { deleteTask, editTask } from "../../store/slices/todoListSlice";
+import { openEditTaskMenu } from "../../store/slices/appSlice";
 
-function TaskActions({ taskId, setEditModeFromTaskActions, editButtonRef }) {
+function TaskActions({ taskId, editButtonRef }) {
   const dispatch = useDispatch();
+
+  const handleEditTask = () => {
+    dispatch(openEditTaskMenu(taskId));
+  };
 
   const handleDeleteTask = () => {
     dispatch(deleteTask(taskId));
@@ -14,7 +19,7 @@ function TaskActions({ taskId, setEditModeFromTaskActions, editButtonRef }) {
       <button
         ref={editButtonRef}
         className=" text-blue-400 w-full  hover:bg-blue-200 hover:text-white"
-        onClick={() => setEditModeFromTaskActions()}
+        onClick={handleEditTask}
       >
         Edit
       </button>

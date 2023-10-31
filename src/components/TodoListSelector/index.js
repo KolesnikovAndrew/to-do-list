@@ -24,7 +24,7 @@ function TodoListSelector() {
   };
 
   return (
-    <div className="w-[500px] bg-transparent border-2 shadow-2xl text-gray-200 rounded-md px-4 py-3 outline-none border-gray-200 relative">
+    <div className="w-[500px] bg-transparent border-2 shadow-xl text-gray-200 rounded-md px-4 py-3 outline-none border-gray-200 relative">
       <div
         id="todoListSelector"
         className="bg-transparent h-full focus:ring-0 focus:border-gray-200 border-none w-full  cursor-pointer flex items-center justify-between "

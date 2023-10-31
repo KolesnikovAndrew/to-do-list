@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import {
-  deleteTask,
-  editTask,
-  toggleTaskComplete,
-} from "../../store/slices/todoListSlice";
+import { editTask, toggleTaskComplete } from "../../store/slices/todoListSlice";
 import TaskActions from "./../TaskActions/index";
 import { FiMoreHorizontal } from "react-icons/fi";
 function Task({ task }) {
   const [taskActionsOpen, setTaskActionsOpen] = useState(false);
-  const [newTaskName, setNewTaskName] = useState(task.name);
+  const [newTask, setNewTask] = useState(task);
   const [editMode, setEditMode] = useState(false);
   const taskNameInputRef = useRef(null);
   const taskNameRef = useRef(null);
@@ -22,7 +18,13 @@ function Task({ task }) {
   };
 
   const handleInputChange = (newTaskName) => {
-    setNewTaskName(newTaskName);
+    setNewTask({
+      id: task.id,
+      name: newTaskName,
+      date: task.date,
+      category: task.category,
+      completed: task.completed,
+    });
   };
 
   const setEditModeFromTaskActions = () => {
@@ -39,7 +41,7 @@ function Task({ task }) {
         !taskNameInputRef.current.contains(e.target) &&
         editMode === true
       ) {
-        dispatch(editTask({ id: task.id, updatedTask: newTaskName }));
+        dispatch(editTask(newTask));
         setEditMode(false);
       }
       if (
@@ -58,7 +60,6 @@ function Task({ task }) {
         !taskActionsButtonRef.current.contains(e.target) &&
         taskActionsOpen === true
       ) {
-        console.log("close actions menu");
         setTaskActionsOpen(false);
       }
     };
@@ -70,7 +71,7 @@ function Task({ task }) {
       window.removeEventListener("click", handleClick);
       window.removeEventListener("click", handleTaskActionsClick);
     };
-  }, [editMode, newTaskName, taskActionsOpen, taskActionsOpen]);
+  }, [editMode, newTask, taskActionsOpen, taskActionsOpen]);
 
   return (
     <tr className={"text-center"}>

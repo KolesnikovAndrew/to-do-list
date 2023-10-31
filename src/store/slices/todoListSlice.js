@@ -1,7 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const addTaskToTodoList = (todoList, task, newTaskId) => ({
+  ...todoList,
+  tasks: [
+    ...todoList.tasks,
+    {
+      id: newTaskId,
+      name: task.name,
+      date: task.date,
+      category: task.category,
+      completed: false,
+    },
+  ],
+});
+
 const initialState = {
   selectedTodoListId: 1,
+  editedTask: {},
   todoLists: [
     {
       id: 1,
@@ -73,11 +88,28 @@ const todoListSlice = createSlice({
       state.selectedTodoListId = action.payload;
     },
     addTask: (state, action) => {
+      const selectedTodoListId = state.selectedTodoListId;
       const list = state.todoLists.find(
-        (list) => list.id === state.selectedTodoListId
+        (list) => list.id === selectedTodoListId
       );
       if (list) {
-        list.tasks.push(action.payload);
+        const newTaskId = list.tasks.length + 1;
+        const isTaskAldreadyExists = list.tasks.some(
+          (task) => task.id === newTaskId
+        );
+
+        if (!isTaskAldreadyExists) {
+          const updatedTodoLists = state.todoLists.map((list) =>
+            list.id === selectedTodoListId
+              ? addTaskToTodoList(list, action.payload, newTaskId)
+              : list
+          );
+
+          return {
+            ...state,
+            todoLists: updatedTodoLists,
+          };
+        }
       }
     },
     deleteTask: (state, action) => {
@@ -89,14 +121,17 @@ const todoListSlice = createSlice({
       }
     },
     editTask: (state, action) => {
+      console.log(action.payload);
       const list = state.todoLists.find(
         (list) => list.id === state.selectedTodoListId
       );
       if (list) {
-        const { id, updatedTask } = action.payload;
-        const taskIndex = list.tasks.findIndex((task) => task.id === id);
+        const taskIndex = list.tasks.findIndex(
+          (task) => task.id === action.payload.id
+        );
+
         if (taskIndex !== -1) {
-          list.tasks[taskIndex].name = updatedTask;
+          list.tasks[taskIndex] = action.payload;
         }
       }
     },
@@ -123,5 +158,6 @@ export const {
   toggleTaskComplete,
   selectTodoList,
   getSelectedTodoList,
+  setEditedTask,
 } = todoListSlice.actions;
 export default todoListSlice.reducer;
