@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isAddTaskMenuOpen: false,
   isEditTaskMenuOpen: false,
+  isAddTodoListMenuOpen: false,
+  isEditTodoListMenuOpen: false,
   editedTaskId: null,
 };
 
@@ -24,6 +26,12 @@ const appSlice = createSlice({
     closeEditTaskMenu: (state) => {
       state.isEditTaskMenuOpen = false;
     },
+    openAddTodoListMenu: (state) => {
+      state.isAddTodoListMenuOpen = true;
+    },
+    closeAddTodoListMenu: (state) => {
+      state.isAddTodoListMenuOpen = false;
+    },
   },
 });
 
@@ -32,5 +40,7 @@ export const {
   closeAddTaskMenu,
   openEditTaskMenu,
   closeEditTaskMenu,
+  openAddTodoListMenu,
+  closeAddTodoListMenu,
 } = appSlice.actions;
 export default appSlice.reducer;

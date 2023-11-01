@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTodoList } from "../../store/slices/todoListSlice";
 import { BsList, BsChevronDown, BsChevronUp } from "react-icons/bs";
+import AddTodoListButton from "../AddTodoListButton";
 
 function TodoListSelector() {
   const [selectorIsOpen, setSelectorIsOpen] = useState(false);
@@ -51,9 +52,7 @@ function TodoListSelector() {
               {todoList.name}
             </div>
           ))}
-          <div className="bg-white text-blue-300 p-2">
-            Create new to do list
-          </div>
+          <AddTodoListButton>New todo list</AddTodoListButton>
         </div>
       ) : null}
     </div>

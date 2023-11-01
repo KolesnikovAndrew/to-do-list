@@ -4,13 +4,12 @@ import TodoListSelector from "./components/TodoListSelector";
 import { useSelector } from "react-redux";
 import AddTaskMenu from "./components/AddTaskMenu";
 import EditTaskMenu from "./components/EditTaskMenu/index";
+import AddTodoListMenu from "./components/AddTodoListMenu";
 
 function App() {
   const appState = useSelector((state) => {
     return state.app;
   });
-
-  console.log(appState);
 
   const editedTask = useSelector((state) => {
     const selectedList = state.todoLists.todoLists.find(
@@ -27,11 +26,17 @@ function App() {
     return null;
   });
 
+  const areAllMenusClosed =
+    !appState.isAddTaskMenuOpen &&
+    !appState.isEditTaskMenuOpen &&
+    !appState.isAddTodoListMenuOpen;
+
   return (
     <div className="h-screen  w-screen bg-blue-400 flex flex-col gap-5 items-center pt-[150px]">
-      {appState.isAddTaskMenuOpen && <AddTaskMenu />}
-      {appState.isEditTaskMenuOpen && <EditTaskMenu task={editedTask} />}
-      {!appState.isAddTaskMenuOpen && !appState.isEditTaskMenuOpen && (
+      <AddTaskMenu />
+      <EditTaskMenu task={editedTask} />
+      <AddTodoListMenu />
+      {areAllMenusClosed && (
         <>
           <TodoListSelector />
           <TaskTable />

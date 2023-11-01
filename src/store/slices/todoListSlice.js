@@ -87,6 +87,15 @@ const todoListSlice = createSlice({
     selectTodoList: (state, action) => {
       state.selectedTodoListId = action.payload;
     },
+    addTodoList: (state, action) => {
+      const newTodoList = {
+        id: state.todoLists.length + 1,
+        name: action.payload,
+        tasks: [],
+      };
+      console.log(newTodoList);
+      state.todoLists.push(newTodoList);
+    },
     addTask: (state, action) => {
       const selectedTodoListId = state.selectedTodoListId;
       const list = state.todoLists.find(
@@ -121,7 +130,6 @@ const todoListSlice = createSlice({
       }
     },
     editTask: (state, action) => {
-      console.log(action.payload);
       const list = state.todoLists.find(
         (list) => list.id === state.selectedTodoListId
       );
@@ -159,5 +167,6 @@ export const {
   selectTodoList,
   getSelectedTodoList,
   setEditedTask,
+  addTodoList,
 } = todoListSlice.actions;
 export default todoListSlice.reducer;
