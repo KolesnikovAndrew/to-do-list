@@ -17,6 +17,9 @@ const addTaskToTodoList = (todoList, task, newTaskId) => ({
 const initialState = {
   selectedTodoListId: 1,
   editedTask: {},
+  sortBy: "date",
+  sortOrder: "asc",
+  filterCategory: "",
   todoLists: [
     {
       id: 1,
@@ -57,7 +60,39 @@ const initialState = {
       tasks: [
         {
           id: 1,
-          name: "Make a sandwich",
+          name: "Complete Work Presentation",
+          date: "10/26/2023",
+          category: "Job",
+          completed: false,
+        },
+
+        {
+          id: 2,
+          name: "Make a Delicious Sandwich",
+          date: "10/26/2023",
+          category: "Lifestyle",
+          completed: false,
+        },
+
+        {
+          id: 3,
+          name: "Build a Model Hobby Kit",
+          date: "10/26/2023",
+          category: "Hobby",
+          completed: false,
+        },
+
+        {
+          id: 4,
+          name: "Organize Work Tasks",
+          date: "10/26/2023",
+          category: "Job",
+          completed: false,
+        },
+
+        {
+          id: 5,
+          name: "Plan Weekend Getaway",
           date: "10/26/2023",
           category: "Lifestyle",
           completed: false,
@@ -93,8 +128,8 @@ const todoListSlice = createSlice({
         name: action.payload,
         tasks: [],
       };
-      console.log(newTodoList);
       state.todoLists.push(newTodoList);
+      state.selectedTodoListId = newTodoList.id;
     },
     addTask: (state, action) => {
       const selectedTodoListId = state.selectedTodoListId;
@@ -156,6 +191,15 @@ const todoListSlice = createSlice({
         });
       }
     },
+    toggleSortOrder: (state) => {
+      state.sortOrder = state.sortOrder === "asc" ? "dsc" : "asc";
+    },
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload;
+    },
+    setFilterCategory: (state, action) => {
+      state.filterCategory = action.payload;
+    },
   },
 });
 
@@ -168,5 +212,8 @@ export const {
   getSelectedTodoList,
   setEditedTask,
   addTodoList,
+  toggleSortOrder,
+  setSortBy,
+  setFilterCategory,
 } = todoListSlice.actions;
 export default todoListSlice.reducer;

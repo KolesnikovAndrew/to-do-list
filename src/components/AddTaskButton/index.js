@@ -12,7 +12,7 @@ function AddTaskButton() {
 
   return (
     <button
-      className="text-blue-300 text-4xl"
+      className="text-blue-300 text-4xl "
       onClick={handleAddTaskButtonClick}
     >
       <AiFillPlusCircle />

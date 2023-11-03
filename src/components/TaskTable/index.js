@@ -13,7 +13,23 @@ function TaskTable() {
     );
 
     if (selectedList) {
-      return selectedList.tasks;
+      let tasks = [...selectedList.tasks];
+      const todoListIsSortedBy = state.todoLists.sortBy;
+      tasks.sort((a, b) => {
+        if (state.todoLists.sortOrder === "asc") {
+          return a[todoListIsSortedBy].localeCompare(b[todoListIsSortedBy]);
+        } else {
+          return b[todoListIsSortedBy].localeCompare(a[todoListIsSortedBy]);
+        }
+      });
+
+      if (state.todoLists.filterCategory) {
+        tasks = tasks.filter(
+          (task) => task.category === state.todoLists.filterCategory
+        );
+      }
+
+      return tasks;
     }
 
     return [];

@@ -31,47 +31,57 @@ function Task({ task }) {
     setEditMode(!editMode);
   };
 
+  const handleEditTask = () => {
+    dispatch(editTask(newTask));
+    setEditMode(false);
+  };
+
+  const handleStartEdit = () => {
+    setEditMode(true);
+    setTaskActionsOpen(false);
+  };
+
+  const handleCloseTaskActions = () => {
+    setTaskActionsOpen(false);
+  };
+
   useEffect(() => {
     const handleClick = (e) => {
       if (editButtonRef.current && editButtonRef.current.contains(e.target)) {
         return;
       }
+
       if (
         taskNameInputRef.current &&
         !taskNameInputRef.current.contains(e.target) &&
-        editMode === true
+        editMode
       ) {
-        dispatch(editTask(newTask));
-        setEditMode(false);
+        handleEditTask();
       }
+
       if (
         taskNameRef.current &&
         taskNameRef.current.contains(e.target) &&
-        editMode === false
+        !editMode
       ) {
-        setEditMode(true);
-        setTaskActionsOpen(false);
+        handleStartEdit();
       }
-    };
 
-    const handleTaskActionsClick = (e) => {
       if (
         taskActionsButtonRef.current &&
         !taskActionsButtonRef.current.contains(e.target) &&
-        taskActionsOpen === true
+        taskActionsOpen
       ) {
-        setTaskActionsOpen(false);
+        handleCloseTaskActions();
       }
     };
 
     window.addEventListener("click", handleClick);
-    window.addEventListener("click", handleTaskActionsClick);
 
     return () => {
       window.removeEventListener("click", handleClick);
-      window.removeEventListener("click", handleTaskActionsClick);
     };
-  }, [editMode, newTask, taskActionsOpen, taskActionsOpen]);
+  }, [editMode, newTask, taskActionsOpen]);
 
   return (
     <tr className={"text-center"}>
@@ -101,14 +111,14 @@ function Task({ task }) {
       <td className="p-2">{task.category}</td>
       <td className="p-2">
         <button
-          className="w-[40px] h-[40px] hover:bg-blue-200 hover:text-white flex items-center justify-center rounded-full text-2xl shadow-2xl border-2 border-blue-100"
+          className="w-[40px] h-[40px] hover:bg-blue-200 hover:text-white flex items-center justify-center rounded-full text-2xl shadow-2xl border-2 border-blue-100 transition duration-300 ease-in-out transform "
           ref={taskActionsButtonRef}
           onClick={() => setTaskActionsOpen((currentValue) => !currentValue)}
         >
           <FiMoreHorizontal />
         </button>
         {taskActionsOpen ? (
-          <div className="absolute bg-gray-100 w-[100px] py-3 border-2 border-blue-300 flex flex-col rounded-md shadow-2xl">
+          <div className="absolute bg-gray-100 w-[100px] py-3 border-2 border-blue-300 flex flex-col rounded-md shadow-2xl ">
             <TaskActions
               taskId={task.id}
               setEditModeFromTaskActions={setEditModeFromTaskActions}

@@ -11,7 +11,7 @@ function AddTodoListButton({ children }) {
 
   return (
     <button
-      className="bg-white text-blue-300 p-2 w-full"
+      className="bg-blue-500 text-white hover:bg-white hover:text-blue-300 p-2 w-full transition duration-300 ease-in-out transform"
       onClick={handleAddTodoListButtonClick}
     >
       {children}

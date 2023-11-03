@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import AddTaskMenu from "./components/AddTaskMenu";
 import EditTaskMenu from "./components/EditTaskMenu/index";
 import AddTodoListMenu from "./components/AddTodoListMenu";
+import SortingPanel from "./components/SortingPanel";
 
 function App() {
   const appState = useSelector((state) => {
@@ -39,6 +40,7 @@ function App() {
       {areAllMenusClosed && (
         <>
           <TodoListSelector />
+          <SortingPanel />
           <TaskTable />
         </>
       )}

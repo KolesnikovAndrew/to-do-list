@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTodoList } from "../../store/slices/todoListSlice";
 import { BsList, BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -24,9 +24,32 @@ function TodoListSelector() {
     setSelectorIsOpen(!selectorIsOpen);
   };
 
+  const todoListSelectorRef = useRef(null);
+  const todoListSeletorOptionsRef = useRef(null);
+  useEffect(() => {
+    const handleTodoListSelectorClick = (e) => {
+      if (
+        todoListSelectorRef.current &&
+        !todoListSelectorRef.current.contains(e.target) &&
+        todoListSeletorOptionsRef.current &&
+        !todoListSeletorOptionsRef.current.contains(e.target) &&
+        selectorIsOpen === true
+      ) {
+        setSelectorIsOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleTodoListSelectorClick);
+
+    return () => {
+      window.removeEventListener("click", handleTodoListSelectorClick);
+    };
+  }, [selectorIsOpen]);
+
   return (
     <div className="w-[500px] bg-transparent border-2 shadow-xl text-gray-200 rounded-md px-4 py-3 outline-none border-gray-200 relative">
       <div
+        ref={todoListSelectorRef}
         id="todoListSelector"
         className="bg-transparent h-full focus:ring-0 focus:border-gray-200 border-none w-full  cursor-pointer flex items-center justify-between "
         onClick={handleToggleSelector}
@@ -40,6 +63,7 @@ function TodoListSelector() {
       </div>
       {selectorIsOpen ? (
         <div
+          ref={todoListSeletorOptionsRef}
           id="optionList"
           className="backdrop-blur bg-blue-200 border-2 border-white absolute w-[500px] mt-[5px] rounded cursor-pointer ml-[-18px] transform transition-transform duration-150"
         >
