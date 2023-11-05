@@ -43,7 +43,6 @@ function AddTaskMenu() {
             type="text"
             name="name"
             placeholder="Task name"
-            value={newTask.name}
             onChange={handleInputChange}
           />
           <h2 className="text-blue-400 text-lg mt-4 mb-2">Select a category</h2>

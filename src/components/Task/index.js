@@ -111,7 +111,7 @@ function Task({ task }) {
       <td className="p-2">{task.category}</td>
       <td className="p-2">
         <button
-          className="w-[40px] h-[40px] hover:bg-blue-200 hover:text-white flex items-center justify-center rounded-full text-2xl shadow-2xl border-2 border-blue-100 transition duration-300 ease-in-out transform "
+          className="w-[40px] h-[40px] hover:bg-blue-200 hover:text-white flex items-center justify-center rounded-full text-2xl shadow-2xl border-2 border-blue-100 transition duration-300 ease-in-out "
           ref={taskActionsButtonRef}
           onClick={() => setTaskActionsOpen((currentValue) => !currentValue)}
         >

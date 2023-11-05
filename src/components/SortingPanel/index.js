@@ -11,6 +11,9 @@ function SortingPanel() {
   const sortOrder = useSelector((state) => {
     return state.todoLists.sortOrder;
   });
+  const sortBy = useSelector((state) => {
+    return state.todoLists.sortBy;
+  });
 
   const handleToggleSortOrder = () => {
     dispatch(toggleSortOrder());
@@ -25,13 +28,14 @@ function SortingPanel() {
   };
 
   return (
-    <div className="bg-gray-100 p-3 rounded-lg shadow-md w-[500px] shadow-lg flex justify-between items-center align-middle justify-center">
+    <div className="bg-transparent text-white text-xl p-3 rounded-lg w-[500px] flex justify-between items-center align-middle ">
       <div className="flex items-center gap-3 ">
         <div className="flex items-center">
           <span className="mr-2">Sort by:</span>
           <select
-            className="p-2 rounded-md"
+            className="p-2 rounded-md border-none text-blue-950 w-[110px]"
             onChange={(e) => handleSortByChange(e)}
+            value={sortBy}
           >
             <option value="date">Date</option>
             <option value="name">Name</option>
@@ -48,7 +52,7 @@ function SortingPanel() {
       <div className="flex items-center">
         <span className="mr-2">Category:</span>
         <select
-          className="p-2 rounded-md"
+          className="p-2 rounded-md border-none text-blue-950 w-[110px]"
           onChange={(e) => handleFilterCategory(e)}
         >
           <option value="">All</option>

@@ -17,8 +17,8 @@ const addTaskToTodoList = (todoList, task, newTaskId) => ({
 const initialState = {
   selectedTodoListId: 1,
   editedTask: {},
-  sortBy: "date",
-  sortOrder: "asc",
+  sortBy: "name",
+  sortOrder: "dsc",
   filterCategory: "",
   todoLists: [
     {
