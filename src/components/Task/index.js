@@ -3,6 +3,13 @@ import { useDispatch } from "react-redux";
 import { editTask, toggleTaskComplete } from "../../store/slices/todoListSlice";
 import TaskActions from "./../TaskActions/index";
 import { FiMoreHorizontal } from "react-icons/fi";
+
+const categoryColors = {
+  Job: "bg-categoryJob",
+  Hobby: "bg-categoryHobby",
+  Lifestyle: "bg-categoryLifestyle",
+};
+
 function Task({ task }) {
   const [taskActionsOpen, setTaskActionsOpen] = useState(false);
   const [newTask, setNewTask] = useState(task);
@@ -47,16 +54,8 @@ function Task({ task }) {
   };
 
   useEffect(() => {
-    if (task.category === "Job") {
-      setCategoryTagColor("categoryJob");
-    }
-    if (task.category === "Hobby") {
-      setCategoryTagColor("categoryHobby");
-    }
-    if (task.category === "Lifestyle") {
-      setCategoryTagColor("categoryLifestyle");
-    }
-  });
+    setCategoryTagColor(categoryColors[task.category]);
+  }, [task.category]);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -125,7 +124,9 @@ function Task({ task }) {
 
       <td className="p-2  text-right">
         <span
-          className={`text-white p-2 text-right rounded-xl bg-${categoryTagColor} `}
+          className={`text-white p-2 text-right rounded-xl ${
+            categoryColors[task.category]
+          }`}
         >
           {task.category}
         </span>
