@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteTask, editTask } from "../../store/slices/todoListSlice";
+import { deleteTask } from "../../store/slices/todoListSlice";
 import { openEditTaskMenu } from "../../store/slices/appSlice";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 function TaskActions({ taskId, editButtonRef }) {
   const dispatch = useDispatch();
@@ -18,16 +19,16 @@ function TaskActions({ taskId, editButtonRef }) {
     <>
       <button
         ref={editButtonRef}
-        className=" text-blue-400 w-full  hover:bg-blue-200 hover:text-white"
+        className=" text-blue-400   hover:bg-blue-200 hover:text-white rounded-full p-2 text-xl border-2 border-blue-300 hover:border-blue-200"
         onClick={handleEditTask}
       >
-        Edit
+        <AiFillEdit />
       </button>
       <button
-        className=" text-deleteRed hover:bg-deleteRed hover:text-white"
+        className=" text-deleteRed hover:bg-deleteRed hover:text-white rounded-full p-2 text-xl border-2 border-deleteRed hover:border-deleteRed"
         onClick={handleDeleteTask}
       >
-        Delete
+        <AiFillDelete />
       </button>
     </>
   );

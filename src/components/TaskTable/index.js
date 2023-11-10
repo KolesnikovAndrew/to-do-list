@@ -18,7 +18,8 @@ function TaskTable() {
       tasks.sort((a, b) => {
         if (state.todoLists.sortOrder === "asc") {
           return a[todoListIsSortedBy].localeCompare(b[todoListIsSortedBy]);
-        } else {
+        }
+        if (state.todoLists.sortOrder === "dsc") {
           return b[todoListIsSortedBy].localeCompare(a[todoListIsSortedBy]);
         }
       });
@@ -36,23 +37,28 @@ function TaskTable() {
   });
 
   return (
-    <div className=" border-2 shadow-xl rounded-lg p-3 w-[500px] items-center justify-center flex flex-col bg-gray-100">
-      <table>
-        <thead>
-          <tr className=" uppercase text-blue-900">
-            <th className="p-2 border-b-2 border-blue-100"></th>
-            <th className="p-2 border-b-2 border-blue-100">Name</th>
-            <th className="p-2 border-b-2 border-blue-100">Created at</th>
-            <th className="p-2 border-b-2 border-blue-100">Category</th>
-            <th className="p-2 border-b-2 border-blue-100"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {selectedTodoListTasks.map((task) => (
-            <Task task={task} key={task.id} />
-          ))}
-        </tbody>
-      </table>
+    <div className=" border-2 shadow-xl rounded-lg p-3 w-[700px] items-center justify-center flex flex-col bg-gray-100">
+      {selectedTodoListTasks.length ? (
+        <table>
+          <thead>
+            <tr className=" uppercase text-blue-900">
+              <th className="p-2 border-b-2 border-blue-100"></th>
+              <th className="p-2 border-b-2 border-blue-100">Name</th>
+              <th className="p-2 border-b-2 border-blue-100">Category</th>
+              <th className="p-2 border-b-2 border-blue-100">Created at</th>
+              <th className="p-2 border-b-2 border-blue-100"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {selectedTodoListTasks.map((task) => (
+              <Task task={task} key={task.id} />
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="p-4">No tasks in this todo list...</div>
+      )}
+
       <div className="w-full  items-center justify-center align-middle flex">
         <AddTaskButton />
       </div>

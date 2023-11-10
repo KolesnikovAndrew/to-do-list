@@ -6,6 +6,11 @@ import {
   toggleSortOrder,
 } from "../../store/slices/todoListSlice";
 
+import {
+  AiOutlineSortAscending,
+  AiOutlineSortDescending,
+} from "react-icons/ai";
+
 function SortingPanel() {
   const dispatch = useDispatch();
   const sortOrder = useSelector((state) => {
@@ -43,10 +48,14 @@ function SortingPanel() {
           </select>
         </div>
         <div
-          className="flex items-center cursor-pointer text-blue-400"
+          className="flex cursor-pointer text-white  rounded-full  items-center justify-center align-center"
           onClick={handleToggleSortOrder}
         >
-          {sortOrder === "asc" ? "▼" : "▲"}
+          {sortOrder === "asc" ? (
+            <AiOutlineSortAscending />
+          ) : (
+            <AiOutlineSortDescending />
+          )}
         </div>
       </div>
       <div className="flex items-center">

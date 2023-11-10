@@ -7,6 +7,7 @@ function Task({ task }) {
   const [taskActionsOpen, setTaskActionsOpen] = useState(false);
   const [newTask, setNewTask] = useState(task);
   const [editMode, setEditMode] = useState(false);
+  const [categoryTagColor, setCategoryTagColor] = useState("");
   const taskNameInputRef = useRef(null);
   const taskNameRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -44,6 +45,18 @@ function Task({ task }) {
   const handleCloseTaskActions = () => {
     setTaskActionsOpen(false);
   };
+
+  useEffect(() => {
+    if (task.category === "Job") {
+      setCategoryTagColor("categoryJob");
+    }
+    if (task.category === "Hobby") {
+      setCategoryTagColor("categoryHobby");
+    }
+    if (task.category === "Lifestyle") {
+      setCategoryTagColor("categoryLifestyle");
+    }
+  });
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -84,31 +97,40 @@ function Task({ task }) {
   }, [editMode, newTask, taskActionsOpen]);
 
   return (
-    <tr className={"text-center"}>
+    <tr className="text-center align-left">
       <td className="p-2">
         <input
           type="checkbox"
-          className="form-checkbox h-5 w-5 ring-0 rounded-full focus:ring-0 focus:ring-offset-0 cursor-pointer   checked:text-blue-300"
+          className="form-checkbox h-5 w-5 ring-0 focus:ring-0 focus:ring-offset-0 cursor-pointer border-blue-300   checked:text-blue-300"
           onChange={handleCheckboxClick}
           checked={task.completed}
         />
       </td>
 
-      <td className="p-2" ref={taskNameRef}>
+      <td className="p-2 inline-block  w-[350px] h-[80px] " ref={taskNameRef}>
         {editMode ? (
           <input
             ref={taskNameInputRef}
             autoFocus
-            className="border-none bg-transparent  outline-none focus:border-none border-transparent focus:border-transparent focus:ring-0 w-full"
+            className="border-none bg-transparent  outline-none focus:border-none border-transparent focus:border-transparent focus:ring-0      line-clamp-1   h-full  flex items-center p-0  text-left w-full"
             placeholder={task.name}
             onChange={(e) => handleInputChange(e.target.value)}
           ></input>
         ) : (
-          task.name
+          <div className="line-clamp-1 h-full flex items-center p-0  w-full   text-left ">
+            {task.name}
+          </div>
         )}
       </td>
+
+      <td className="p-2  text-right">
+        <span
+          className={`text-white p-2 text-right rounded-xl bg-${categoryTagColor} `}
+        >
+          {task.category}
+        </span>
+      </td>
       <td className="p-2">{task.date}</td>
-      <td className="p-2">{task.category}</td>
       <td className="p-2">
         <button
           className="w-[40px] h-[40px] hover:bg-blue-200 hover:text-white flex items-center justify-center rounded-full text-2xl shadow-2xl border-2 border-blue-100 transition duration-300 ease-in-out "
@@ -118,7 +140,7 @@ function Task({ task }) {
           <FiMoreHorizontal />
         </button>
         {taskActionsOpen ? (
-          <div className="absolute bg-gray-100 w-[100px] py-3 border-2 border-blue-300 flex flex-col rounded-md shadow-2xl ">
+          <div className="absolute bg-gray-100  p-2 border-2 border-blue-300 flex gap-2 justify-between  rounded-md shadow-2xl duration-300 transition">
             <TaskActions
               taskId={task.id}
               setEditModeFromTaskActions={setEditModeFromTaskActions}

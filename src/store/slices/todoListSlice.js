@@ -17,7 +17,7 @@ const addTaskToTodoList = (todoList, task, newTaskId) => ({
 const initialState = {
   selectedTodoListId: 1,
   editedTask: {},
-  sortBy: "name",
+  sortBy: "date",
   sortOrder: "dsc",
   filterCategory: "",
   todoLists: [
@@ -28,7 +28,7 @@ const initialState = {
         {
           id: 1,
           name: "Create task table",
-          date: "10/26/2023",
+          date: "10.26.2023",
           category: "Job",
           completed: false,
         },
@@ -41,14 +41,14 @@ const initialState = {
         {
           id: 1,
           name: "Create a cat website",
-          date: "10/26/2029",
+          date: "10.26.2029",
           category: "Hobby",
           completed: false,
         },
         {
           id: 2,
           name: "Create a car website",
-          date: "10/26/2029",
+          date: "10.26.2029",
           category: "Hobby",
           completed: false,
         },
@@ -61,7 +61,7 @@ const initialState = {
         {
           id: 1,
           name: "Complete Work Presentation",
-          date: "10/26/2023",
+          date: "10.26.2023",
           category: "Job",
           completed: false,
         },
@@ -69,7 +69,7 @@ const initialState = {
         {
           id: 2,
           name: "Make a Delicious Sandwich",
-          date: "10/26/2023",
+          date: "10.26.2023",
           category: "Lifestyle",
           completed: false,
         },
@@ -77,7 +77,7 @@ const initialState = {
         {
           id: 3,
           name: "Build a Model Hobby Kit",
-          date: "10/26/2023",
+          date: "10.26.2023",
           category: "Hobby",
           completed: false,
         },
@@ -85,7 +85,7 @@ const initialState = {
         {
           id: 4,
           name: "Organize Work Tasks",
-          date: "10/26/2023",
+          date: "10.26.2023",
           category: "Job",
           completed: false,
         },
@@ -93,7 +93,7 @@ const initialState = {
         {
           id: 5,
           name: "Plan Weekend Getaway",
-          date: "10/26/2023",
+          date: "10.26.2023",
           category: "Lifestyle",
           completed: false,
         },
@@ -106,7 +106,7 @@ const initialState = {
         {
           id: 1,
           name: "List 4 Task",
-          date: "10/26/2023",
+          date: "10.26.2023",
           category: "Test",
           completed: false,
         },
